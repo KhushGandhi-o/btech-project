@@ -1,0 +1,53 @@
+{
+    "total_segments": 8,
+    "segments": [
+        {
+            "start": 0.0,
+            "end": 4.8,
+            "speaker": "Doctor",
+            "text": "Hello , what problem are you having today ?"
+        },
+        {
+            "start": 4.8,
+            "end": 12.76,
+            "speaker": "Patient",
+            "text": "I have had a headache for the past 3 days and I feel slightly feverish ."
+        },
+        {
+            "start": 12.76,
+            "end": 16.16,
+            "speaker": "Doctor",
+            "text": "Do you have any vomiting or dizziness ?"
+        },
+        {
+            "start": 16.16,
+            "end": 20.64,
+            "speaker": "Patient",
+            "text": "No vomiting but I feel a little tired ."
+        },
+        {
+            "start": 20.64,
+            "end": 27.36,
+            "speaker": "Doctor",
+            "text": "Your temperature is 99 degrees Fahrenheit and your pulse is 90 ."
+        },
+        {
+            "start": 27.36,
+            "end": 30.52,
+            "speaker": "Doctor",
+            "text": "It looks a mild viral infection ."
+        },
+        {
+            "start": 30.52,
+            "end": 37.84,
+            "speaker": "Doctor",
+            "text": "I will prescribe paracetamol 650 mg to ice a day for 3 days ."
+        },
+        {
+            "start": 37.84,
+            "end": 40.64,
+            "speaker": "Doctor",
+            "text": "Please drink plenty of fluids and take rest ."
+        }
+    ]
+}
