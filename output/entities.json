@@ -1,0 +1,26 @@
+{
+    "Subjective": [
+        "headache (Context: I have had a headache for the past 3 days and I feel slightly feverish .)",
+        "fever (Context: I have had a headache for the past 3 days and I feel slightly feverish .)",
+        "vomiting (Context: Do you have any vomiting or dizziness ?)",
+        "di (Context: Do you have any vomiting or dizziness ?)",
+        "##zziness (Context: Do you have any vomiting or dizziness ?)",
+        "vomiting (Context: No vomiting but I feel a little tired .)"
+    ],
+    "Objective": [
+        "temperature (Context: Your temperature is 99 degrees Fahrenheit and your pulse is 90 .)",
+        "99 degrees fahrenheit (Context: Your temperature is 99 degrees Fahrenheit and your pulse is 90 .)",
+        "pulse (Context: Your temperature is 99 degrees Fahrenheit and your pulse is 90 .)",
+        "90 (Context: Your temperature is 99 degrees Fahrenheit and your pulse is 90 .)"
+    ],
+    "Assessment": [
+        "Preliminary evaluation based on reported symptoms and vitals."
+    ],
+    "Plan": [
+        "para (Context: I will prescribe paracetamol 650 mg to ice a day for 3 days .)",
+        "##cetamol (Context: I will prescribe paracetamol 650 mg to ice a day for 3 days .)",
+        "650 mg (Context: I will prescribe paracetamol 650 mg to ice a day for 3 days .)",
+        "ice (Context: I will prescribe paracetamol 650 mg to ice a day for 3 days .)",
+        "fluids (Context: Please drink plenty of fluids and take rest .)"
+    ]
+}
