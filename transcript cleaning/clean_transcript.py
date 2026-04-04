@@ -2,7 +2,14 @@ import spacy
 import json
 import re
 
-nlp = spacy.load("en_core_web_sm")
+_nlp = None
+
+
+def _get_nlp():
+    global _nlp
+    if _nlp is None:
+        _nlp = spacy.load("en_core_web_sm")
+    return _nlp
 
 FILLERS = {"uh", "um", "hmm", "like", "okay", "right", "so", "basically"}
 
@@ -42,7 +49,7 @@ def detect_speaker(text):
         return "Unknown"  # fallback if scores are equal
 
 def clean_text(text):
-    doc = nlp(text.strip())
+    doc = _get_nlp()(text.strip())
     tokens = [
         token.text for token in doc
         if token.text.lower() not in FILLERS
@@ -64,26 +71,27 @@ def clean_transcript(segments):
             })
     return cleaned
 
-# Read Khush's transcript.json
-with open("output/transcript.json", "r") as f:
-    segments = json.load(f)
 
-# Clean and label
-cleaned_segments = clean_transcript(segments)
+def build_cleaned_transcript(segments):
+    """Return the same structure written by the CLI to cleaned_transcript.json."""
+    cleaned_segments = clean_transcript(segments)
+    return {
+        "total_segments": len(cleaned_segments),
+        "segments": cleaned_segments,
+    }
 
-# Build output
-output = {
-    "total_segments": len(cleaned_segments),
-    "segments": cleaned_segments
-}
 
-# Save
-with open("output/cleaned_transcript.json", "w") as f:
-    json.dump(output, f, indent=4)
+if __name__ == "__main__":
+    with open("output/transcript.json", "r") as f:
+        segments = json.load(f)
 
-print("Saved cleaned_transcript.json\n")
+    output = build_cleaned_transcript(segments)
 
-# Pretty print to console
-for seg in cleaned_segments:
-    print(f"[{seg['speaker']}] ({seg['start']}s - {seg['end']}s)")
-    print(f"  {seg['text']}\n")
+    with open("output/cleaned_transcript.json", "w") as f:
+        json.dump(output, f, indent=4)
+
+    print("Saved cleaned_transcript.json\n")
+
+    for seg in output["segments"]:
+        print(f"[{seg['speaker']}] ({seg['start']}s - {seg['end']}s)")
+        print(f"  {seg['text']}\n")

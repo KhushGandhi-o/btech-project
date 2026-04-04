@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clinical Audio — Transcript & SOAP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <header class="header">
+      <div class="header-inner">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <div>
+            <h1>Clinical audio workspace</h1>
+            <p class="tagline">
+              Upload a consultation recording — get Whisper transcript and a SOAP-style note from biomedical NER.
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="panel upload-panel" aria-labelledby="upload-heading">
+        <h2 id="upload-heading" class="sr-only">Upload audio</h2>
+        <div
+          id="dropzone"
+          class="dropzone"
+          tabindex="0"
+          role="button"
+          aria-label="Drop audio file or click to browse"
+        >
+          <input
+            id="file-input"
+            type="file"
+            accept="audio/*,.mp3,.wav,.m4a,.flac,.ogg,.opus,.webm,.aac,.wma,.aiff,.alac,.mp4,.mpeg"
+            class="file-input"
+          />
+          <div class="dropzone-icon" aria-hidden="true">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25">
+              <path d="M12 3v12m0 0l4-4m-4 4L8 11" />
+              <path d="M4 15v2a3 3 0 003 3h10a3 3 0 003-3v-2" />
+            </svg>
+          </div>
+          <p class="dropzone-title">Drop an audio file here</p>
+          <p class="dropzone-hint">
+            WAV, MP3, M4A, FLAC, OGG, WebM, AAC, MP4 (audio), and other common formats
+          </p>
+          <button type="button" class="btn btn-secondary browse-btn">Browse files</button>
+        </div>
+        <div id="file-meta" class="file-meta hidden" aria-live="polite"></div>
+        <div class="actions">
+          <button type="button" id="process-btn" class="btn btn-primary" disabled>
+            Run pipeline
+          </button>
+          <button type="button" id="reset-btn" class="btn btn-ghost hidden">Clear</button>
+        </div>
+        <div id="status" class="status hidden" role="status" aria-live="polite"></div>
+      </section>
+
+      <div class="results-grid">
+        <section class="panel output-panel" aria-labelledby="transcript-heading">
+          <div class="panel-header">
+            <h2 id="transcript-heading">Transcript</h2>
+            <button type="button" class="btn btn-ghost btn-small copy-btn" data-copy-target="transcript-out">
+              Copy
+            </button>
+          </div>
+          <div class="tabs" role="tablist">
+            <button type="button" class="tab active" role="tab" aria-selected="true" data-tab="raw">
+              Raw
+            </button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-tab="cleaned">
+              Cleaned dialogue
+            </button>
+          </div>
+          <pre id="transcript-out" class="output-text mono empty">Upload audio and run the pipeline to see the transcript.</pre>
+        </section>
+
+        <section class="panel output-panel" aria-labelledby="soap-heading">
+          <div class="panel-header">
+            <h2 id="soap-heading">SOAP note</h2>
+            <button type="button" class="btn btn-ghost btn-small copy-btn" data-copy-target="soap-out">
+              Copy
+            </button>
+          </div>
+          <div class="tabs soap-tabs" role="tablist">
+            <button type="button" class="tab soap-tab active" role="tab" aria-selected="true" data-soap-tab="cards">
+              Sections
+            </button>
+            <button type="button" class="tab soap-tab" role="tab" aria-selected="false" data-soap-tab="text">
+              Plain text
+            </button>
+          </div>
+          <div id="soap-cards-wrap">
+            <div id="soap-cards" class="soap-cards empty-state">
+              <p class="placeholder">Structured Subjective, Objective, Assessment, and Plan will appear here.</p>
+            </div>
+          </div>
+          <pre id="soap-out" class="output-text mono soap-raw hidden"></pre>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>
+        First run downloads models (Whisper, spaCy, BioBERT) and can take several minutes. Ensure FFmpeg is installed.
+      </p>
+    </footer>
+
+    <div id="toast" class="toast hidden" role="alert"></div>
+    <script src="/app.js"></script>
+  </body>
+</html>
