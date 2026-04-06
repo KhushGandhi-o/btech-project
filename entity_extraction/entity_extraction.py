@@ -2,14 +2,26 @@ import json
 import os
 from transformers import pipeline
 
+_medical_ner = None
+
+
+def _get_medical_ner():
+    global _medical_ner
+    if _medical_ner is None:
+        _medical_ner = pipeline(
+            "ner",
+            model="d4data/biomedical-ner-all",
+            aggregation_strategy="simple",
+        )
+    return _medical_ner
+
+
 def extract_with_biobert(segments):
     """
-    Uses a pre-trained BioBERT model to identify medical entities 
+    Uses a pre-trained BioBERT model to identify medical entities
     and maps them to SOAP categories.
     """
-    # Load the biomedical NER pipeline
-    # This model is specifically fine-tuned for medical entity recognition
-    medical_ner = pipeline("ner", model="d4data/biomedical-ner-all", aggregation_strategy="simple")
+    medical_ner = _get_medical_ner()
 
     entities = {
         "Subjective": [], 
@@ -20,8 +32,7 @@ def extract_with_biobert(segments):
 
     for seg in segments:
         text = seg["text"]
-        speaker = seg.get("speaker", "Unknown")
-        
+
         # Run BioBERT model on the text
         results = medical_ner(text)
         

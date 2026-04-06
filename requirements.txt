@@ -3,3 +3,7 @@ spacy
 torch
 transformers
 ffmpeg-python
+imageio-ffmpeg
+fastapi
+uvicorn[standard]
+python-multipart
