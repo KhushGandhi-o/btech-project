@@ -2,6 +2,10 @@ openai-whisper
 spacy
 torch
 transformers
+sentencepiece
+accelerate
+numpy
+scipy
 ffmpeg-python
 imageio-ffmpeg
 fastapi
